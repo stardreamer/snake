@@ -37,7 +37,8 @@ fn main() -> amethyst::Result<()> {
 
     let assets_dir = app_root.join("assets");
 
-    let mut game = Application::new(assets_dir, Snake, game_data)?;
+    let mut game = Application::build(assets_dir, Snake)?.with_resource(arena_config).build(game_data)?;
+    // let mut game = Application::new(assets_dir, Snake, game_data)?.with_resource(arena_config);
 
     game.run();
 
