@@ -1,3 +1,6 @@
+mod snake;
+mod config;
+
 use amethyst::{
     prelude::*,
     renderer::{
@@ -8,9 +11,10 @@ use amethyst::{
     utils::application_root_dir,
 };
 
-pub struct Snake;
+use crate::config::ArenaConfig;
 
-impl SimpleState for Snake {}
+
+use crate::snake::Snake;
 
 fn main() -> amethyst::Result<()> {
     amethyst::start_logger(Default::default());
@@ -18,6 +22,9 @@ fn main() -> amethyst::Result<()> {
     let app_root = application_root_dir()?;
 
     let display_config_path = app_root.join("config").join("display.ron");
+    let config = app_root.join("config").join("config.ron");
+    let arena_config = ArenaConfig::load(config)?;
+    println!("{:?}", arena_config);
 
     let game_data = GameDataBuilder::default().with_bundle(
         RenderingBundle::<DefaultBackend>::new()
